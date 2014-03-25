@@ -53,7 +53,11 @@ module.exports = function(options) {
 
   var compileHandlebars = function(file, callback) {
     // Get the name of the template
-    var name = options.processName(file.path);
+    // The name is namespaced to the directory that the file is in
+    var name = path.relative(file.cwd, file.path)
+      .slice(0, -path.extname(file.path).length)
+      .split(path.sep);
+    name = name.slice(2, name.length).join('/');
 
     // Perform pre-compilation
     try {
