@@ -1,0 +1,47 @@
+{
+  "name": "gulp-emblem-ember",
+  "version": "0.0.0",
+  "description": "Emblem.js plugin for gulp (w/ Ember Handlebars)",
+  "main": "index.js",
+  "dependencies": {
+    "event-stream": "~3.1.0",
+    "ember-handlebars": "1.x.x",
+    "emblem": "~0.3.11",
+    "xtend": "~2.1.2"
+  },
+  "devDependencies": {
+    "should": "~2.1.1",
+    "mocha": "~1.17.0",
+    "gulp-util": "~2.2.9"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shilov/gulp-emblem-ember.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "handlebars",
+    "emblem"
+  ],
+  "author": {
+    "name": "Stanley Shilov",
+    "email": "stanleyshilov@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shilov/gulp-emblem-ember"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "readme": "# gulp-emblem [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Dependency Status][gemnasium-image]][gemnasium-url]\n> [Emblem.js][emblem-url] plugin for gulp\n> ...a concise, beautiful, and fully compatible templating alternative for Handlebars.js.\n\n## Usage\n\nFirst, install `gulp-emblem` as a development dependency:\n\n```shell\nnpm install --save-dev gulp-emblem\n```\n\nThen, add it to your `gulpfile.js`:\n\n```javascript\nvar emblem = require('gulp-emblem');\n\ngulp.task('templates', function(){\n  gulp.src(['client/templates/*.em'])\n    .pipe(emblem({\n      namespace: 'MyApp.templates',\n      outputType: 'hybrid'\n     }))\n    .pipe(concat('templates.js'))\n    .pipe(gulp.dest('build/js/'));\n});\n```\n\n## API\n\n### emblem(options)\n\n#### options.namespace\nType: `String`\nDefault: `templates`\n\nThe namespace in which the precompiled templates will be assigned. Use dot notation (e.g. `App.Templates`) for nested namespaces or false to declare templates in the global namespace.\n\n#### options.outputType\nType: `String`\nDefault: `browser`\n\nThe desired output type. One of the following:\n\n* `browser` - Produce plain JavaScript files for the browser\n* `hybrid` - Produce Node modules that can optionally be used on the frontend\n* `node` - Produce Node modules\n* `amd` - Produce AMD modules\n* `commonjs` - Produce CommonJS modules\n* `bare` - Return an unmolested function definition\n\n#### options.declareNamespace\nType: `Boolean`\nDefault: `true`\n\nIf true, non-destructively declare all parts of the namespace. This option is only necessary when `options.type` is `browser` or `hybrid`.\n\nFor example, if the namespace is `MyApp.Templates` and a template is named `App.Header.hbs`, the following declaration will be present in the output file for that template:\n\n```javascript\nthis[\"MyApp\"] = this[\"MyApp\"] || {};\nthis[\"MyApp\"][\"templates\"] = this[\"MyApp\"][\"templates\"] || {};\nthis[\"MyApp\"][\"templates\"][\"App\"] = this[\"MyApp\"][\"templates\"][\"App\"] || {};\nthis[\"MyApp\"][\"templates\"][\"App\"][\"Header\"] = function () {};\n```\n\nWhen processing multiple templates under a given namespace, this will result in duplicate declarations. That is, the non-destructive declaration of the namespace will be repeated for each template compiled.\n\n#### options.processName\nType: `Function`\nDefault: Strip file extension\n\nThis option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object. By default, the filename minus the extension is used.\n\nIf this function returns a string containing periods (not including the file extension), they will be represented as a sub-namespace. See `options.declareNamespace` for an example of the effect.\n\n#### options.compilerOptions\nType: `Object`\n\nCompiler options to pass to `Handlebars.precompile()`.\n\n## Attributions\nThis project is a fork of [`gulp-handlebars`](https://github.com/lazd/gulp-handlebars) by [lazd](https://github.com/lazd).\n[Emblem.js][emblem-url] is a concise, beautiful, and fully compatible templating alternative for Handlebars.js.\n\n\n[travis-url]: http://travis-ci.org/Aulito/gulp-emblem\n[travis-image]: https://secure.travis-ci.org/Aulito/gulp-emblem.png?branch=master\n[npm-url]: https://npmjs.org/package/gulp-emblem\n[npm-image]: https://badge.fury.io/js/gulp-emblem.png\n[gemnasium-image]: https://gemnasium.com/Aulito/gulp-emblem.png\n[gemnasium-url]: https://gemnasium.com/Aulito/gulp-emblem\n\n[emblem-url]: http://emblemjs.com/\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/aulito/gulp-emblem-ember",
+  "_id": "gulp-emblem-ember@0.0.0",
+  "dist": {
+    "shasum": "e203c0ecd9385dcb38fdcfd4c5f0c83a61163ab3"
+  }
+}
